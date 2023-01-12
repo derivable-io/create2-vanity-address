@@ -14,7 +14,7 @@ async function main() {
     const singletonFactoryABI = require('./abi/SingletonFactory.json');
     const singletonFactory = new ethers.Contract(singletonFactoryAddress, singletonFactoryABI, owner.provider);
     const initCodeUTR = require('@derivable/utr/build/UniversalTokenRouter.json').bytecode;
-    const salt = 71302;
+    const salt = 71302; // Example for address 0x8888...
     // 0x46813c3ad3ccf666bcd988ce34c98823d067cd15e337d30d2ac76a189b112553
     const saltHash = ethers.utils.keccak256(salt);
     console.log(saltHash);
