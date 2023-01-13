@@ -13,14 +13,14 @@
   },
   "dependencies": {
     "@atixlabs/hardhat-time-n-mine": "^0.0.5",
-    "@derivable/utr": "git+ssh://git@github.com:derivable-io/utr.git#4321b05e47f36be303a7e6e65fb33d0516b0589f",
     "@uniswap/lib": "^4.0.1-alpha",
     "bn.js": "^5.2.1",
     "canonical-weth": "^1.4.0",
     "config-js": "^1.1.15",
     "csv-parser": "^3.0.0",
     "dotenv": "^16.0.1",
-    "merkletreejs": "^0.2.32"
+    "merkletreejs": "^0.2.32",
+    "minimist": "^1.2.7"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-chai-matchers": "^1.0.0",
