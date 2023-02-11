@@ -4,8 +4,9 @@ The process of scanning the contract address as desired.
 
 How to use:
     Run a command with
-        -s starting salt number
-        -o salt step
+        -s starting salt number (0)
+        -o salt step (1)
+        -c checkpoint size (1000000)
         -b built contract JSON
 Example
 ```
