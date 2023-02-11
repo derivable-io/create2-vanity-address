@@ -36,19 +36,6 @@
   resolved "https://registry.yarnpkg.com/@colors/colors/-/colors-1.5.0.tgz#bb504579c1cae923e6576a4f5da43d25f97bdbd9"
   integrity sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==
 
-"@derivable/utr@git+ssh://git@github.com:derivable-io/utr.git#4321b05e47f36be303a7e6e65fb33d0516b0589f":
-  version "1.0.0"
-  resolved "git+ssh://git@github.com:derivable-io/utr.git#4321b05e47f36be303a7e6e65fb33d0516b0589f"
-  dependencies:
-    "@atixlabs/hardhat-time-n-mine" "^0.0.5"
-    "@uniswap/lib" "^4.0.1-alpha"
-    bn.js "^5.2.1"
-    canonical-weth "^1.4.0"
-    config-js "^1.1.15"
-    csv-parser "^3.0.0"
-    dotenv "^16.0.1"
-    merkletreejs "^0.2.32"
-
 "@ensdomains/ens@^0.4.4":
   version "0.4.5"
   resolved "https://registry.yarnpkg.com/@ensdomains/ens/-/ens-0.4.5.tgz#e0aebc005afdc066447c6e22feb4eda89a5edbfc"
