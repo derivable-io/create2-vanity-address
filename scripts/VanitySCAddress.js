@@ -1,49 +1,48 @@
 const { ethers } = require("hardhat");
+const fs = require('fs')
 const argv = require('minimist')(process.argv.slice(2));
 
-let saltProcessing = 0;
+// Singleton Factory contract address of EIP-2470
+const deployerAddress = '0xce0042B868300000d44A59004Da54A005ffdcf9f';
 
-const pause = () => new Promise(res => setTimeout(res, 0));
+const yield = () => new Promise(res => setTimeout(res, 0));
 
-function hasVanityAddress(address = '0x0000') {
-    // const re = new RegExp('^(....).*\1$');
-    const re = new RegExp('^8888.*');
-    return re.test(address.substring(2, address.length));
+function found(address) {
+    return address.startsWith('0x6120') && address.endsWith('6120')
+    // // const re = new RegExp('^(....).*\1$');
+    // const re = new RegExp('^8888.*');
+    // return re.test(address.substring(2, address.length));
 }
 
-async function getSaltForVanityAddress(initCodeHash, salt = 0) {
-    saltProcessing = salt;
-    // Singleton Factory contract address of EIP-2470
-    const deployerAddress = '0xce0042B868300000d44A59004Da54A005ffdcf9f';
-    let vanityAddress = '';
-    let saltHash;
+async function scan(initCodeHash, salt = 0, offset = 1) {
     while(true) {
-        // Your program
-        saltProcessing += 1;
-        saltHash = ethers.utils.keccak256(saltProcessing);
-        vanityAddress = ethers.utils.getCreate2Address(
-            deployerAddress,
-            saltHash,
-            initCodeHash,
-        );
-        // process.stdout.write(`salt: ${saltProcessing} \r`);
-        if (hasVanityAddress(vanityAddress))
-            console.log(`salt: ${saltProcessing} | addr: ${vanityAddress}`);
-        await pause();
+        console.log({ salt, offset });
+        for (let i = 0; i < 1000000; ++i) {
+            const address = ethers.utils.getCreate2Address(
+                deployerAddress,
+                ethers.utils.hexZeroPad(ethers.utils.hexlify(salt), 32),
+                initCodeHash,
+            );
+            if (found(address)) {
+                console.log({salt, address})
+                return
+            }
+            salt += offset;
+        }
+        await yield();
     }
 }
 
 process.on("SIGINT", function () {
     // remove incomplete output files because user interrupted the script with CTRL+C
-    console.log(`salt processing: ${saltProcessing} \r`);
+    // console.log(`salt processing: ${salt} \r`);
     process.exit(1);
 });
 
 async function main() {
-    const initCode = require(`./build/${argv.b}.json`).bytecode;
+    const initCode = JSON.parse(fs.readFileSync(argv.b)).bytecode;
     const initCodeHash = ethers.utils.keccak256(initCode);
-    const salt = argv.s;
-    getSaltForVanityAddress(initCodeHash, salt);
+    scan(initCodeHash, argv.s, argv.o);
 }
 
 main().catch((error) => {
