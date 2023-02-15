@@ -9,7 +9,7 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 for i in $(eval echo {0..$((n-1))})
 do
-   node $SCRIPT_DIR/VanitySCAddress.js -s$((s+i)) -o$n -c$c -b$b &
+   node $SCRIPT_DIR/VanitySCAddress.js -s$((s+i)) -o$n -c$c -b$b >> $i.log &
 done
 
 wait -n
